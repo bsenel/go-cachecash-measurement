@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: measurement-at-interval
+spec:
+  template:
+    spec:
+      nodeName: lip6-lab.ple-1.edge-net.io
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: cachecash-measurement
+        image: bsenel/cachecash-measurement:interval
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "/tls"
+            name: tls
+        command: ["/bin/bash", "-c", "./measurement.sh frag_bunny.mp4"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0
+      restartPolicy: OnFailure
+      volumes:
+      - name: tls
+        csi:
+          driver: csi.cert-manager.io
+          volumeAttributes:
+                csi.cert-manager.io/issuer-name: ca-issuer-cachecash
+                csi.cert-manager.io/dns-names: cachecash-measurement
+                csi.cert-manager.io/certificate-file: server-cert.pem
+                csi.cert-manager.io/privatekey-file: server-key.pem
+                csi.cert-manager.io/common-name: cachecash-measurement
