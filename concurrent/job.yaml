@@ -16,7 +16,7 @@ spec:
         volumeMounts:
           - mountPath: "/tls"
             name: tls
-        command: ["/bin/bash", "-c", "./measurement.sh frag_bunny_accum.mp4 120s"]
+        command: ["/bin/bash", "-c", "./measurement.sh frag_bunny_accum.mp4 120s 20"]
         securityContext:
           allowPrivilegeEscalation: false
           runAsUser: 0
