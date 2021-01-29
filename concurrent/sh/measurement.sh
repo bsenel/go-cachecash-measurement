@@ -19,6 +19,7 @@ else
       counter=$((counter+1))
       printf "Current date and time: %s\n" "$(date +'%m-%d-%Y %H:%M:%S')"
       echo "Welcome to $counter. request"
+      sleep 0.01
       ./cachecash-curl -o "$counter-$FILE" -logLevel=debug cachecash://cachecash.planet-lab.eu:30070/"$FILE" &
     else
       echo "Client Limit Exceeded: $z"
