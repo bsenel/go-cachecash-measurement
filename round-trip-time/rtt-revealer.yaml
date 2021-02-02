@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: rtt-revealer
+  namespace: authority-edgenet-slice-cachecash
+spec:
+  selector:
+    matchLabels:
+      app: rtt-revealer
+  template:
+    metadata:
+      labels:
+        app: rtt-revealer
+    spec:
+      containers:
+      - name: rtt-revealer
+        image: busybox
+        command: ["/bin/sh", "-c", "ping google.com -c 20 && sleep 600"]

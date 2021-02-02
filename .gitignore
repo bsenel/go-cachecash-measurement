@@ -15,6 +15,7 @@
 # config files
 *.cfg
 *.txt
+*.mp4
 
 # Ignore OS X metadata files
 ._*
